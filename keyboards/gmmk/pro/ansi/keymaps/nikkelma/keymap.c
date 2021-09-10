@@ -14,25 +14,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// This layout inherits many of the features/design of the default keymap:
-// - FN is a momentary toggle to layer 1
-// - FN + backslash maps to the RESET key
-// - Fn + N toggles NKRO
-
-// A few swaps have been made on the base layer to accommodate for my
-// preferences as a software engineer to have home and end alongside of delete:
-// - Prt  -> Del
-// - Del  -> Home
-// - PgUp -> End
-// - PgDn -> PgUp
-// - End  -> PgDn
-
-// I swapped to this keyboard from a WASD Code keyboard, so I've gained muscle
-// memory of using my thumb on FN and right fingers to control media playback:
-// FN + Home -> Play
-// FN + End  -> Next
-// FN + PgUp -> Prev
-
 #include QMK_KEYBOARD_H
 
 // clang-format off
