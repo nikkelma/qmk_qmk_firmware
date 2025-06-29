@@ -16,3 +16,21 @@ memory of using my thumb on FN and right fingers to control media playback:
 - Fn + Home -> Play
 - Fn + End  -> Next
 - Fn + PgUp -> Prev
+
+## Build commands / details - DigitalOcean
+
+```bash
+mkdir -p github.com/nikkelma
+cd github.com/nikkelma
+
+sudo apt-get install python3.12-venv -y
+
+git clone https://github.com/nikkelma/qmk_qmk_firmware.git
+cd qmk_qmk_firmware
+git remote add upstream https://github.com/qmk/qmk_firmware.git
+
+qmk setup
+
+qmk config user.keyboard=gmmk/pro/rev1/ansi
+qmk config user.keymap=nikkelma
+```
