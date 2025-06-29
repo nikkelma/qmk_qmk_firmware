@@ -60,6 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGB_MATRIX_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  extern bool solid_color_experiment_display_hsv;
   switch (keycode) {
     case NM_HSVM:
       if (record->event.pressed) {
