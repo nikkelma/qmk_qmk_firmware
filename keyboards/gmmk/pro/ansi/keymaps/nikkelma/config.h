@@ -20,3 +20,7 @@
     #define RGB_DISABLE_TIMEOUT 1200000     // 20 minutes (20 * 60 * 1000ms)
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif
+
+// allows keyboard to work after sleep on MacOS
+// credit: gmmk/pro/ansi:mike1808 config.h
+#define NO_USB_STARTUP_CHECK
