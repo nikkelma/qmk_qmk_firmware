@@ -85,454 +85,270 @@ static NikkelmaKeyGroup pin_to_key_group(uint8_t pin) {
 
 static bool solid_color_experiment_display_hsv;
 
+// Color experiment: RGB mode
 static bool solid_color_experiment_set_rgb(uint8_t led_min, uint8_t led_max) {
   for (uint8_t i = led_min; i < led_max; i++) {
-    NikkelmaKeyGroup key_group = pin_to_key_group(i);
-    switch (key_group) {
-      case F1_F4: {
-        rgb_matrix_set_color(i, RGB_RED);
-        break;
-      }
-      case F5_F8: {
-        rgb_matrix_set_color(i, RGB_GREEN);
-        break;
-      }
-      case F9_F12: {
-        rgb_matrix_set_color(i, RGB_BLUE);
-        break;
-      }
-      case COLOR_1: {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-        uint8_t target_val = rgb.r;
+    rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
+	switch (i) {
+	  // KeyGroup F1_F4
+	  case 6:
+		rgb_matrix_set_color(i, 0, 0, 0);
+		break;
+      case 12:
+		rgb_matrix_set_color(i, 85, 0, 0);
+		break;
+      case 18:
+		rgb_matrix_set_color(i, 170, 0, 0);
+		break;
+      case 23:
+		rgb_matrix_set_color(i, 255, 0, 0);
+		break;
 
-        switch (i) {
-          case 7:
-            if ((target_val >> 7) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 13:
-            if ((target_val >> 6) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 19:
-            if ((target_val >> 5) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 24:
-            if ((target_val >> 4) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 29:
-            if ((target_val >> 3) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 35:
-            if ((target_val >> 2) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 40:
-            if ((target_val >> 1) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 45:
-            if ((target_val) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-        }
-        break;
-      }
-      case COLOR_2: {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-        uint8_t target_val = rgb.g;
+      // KeyGroup F5_F8
+	  case 28:
+		rgb_matrix_set_color(i, 0, 0, 0);
+		break;
+      case 34:
+		rgb_matrix_set_color(i, 0, 85, 0);
+		break;
+      case 39:
+		rgb_matrix_set_color(i, 0, 171, 0);
+		break;
+      case 44:
+		rgb_matrix_set_color(i, 0, 255, 0);
+		break;
 
-        switch (i) {
-          case 8:
-            if ((target_val >> 7) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 14:
-            if ((target_val >> 6) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 20:
-            if ((target_val >> 5) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 25:
-            if ((target_val >> 4) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 30:
-            if ((target_val >> 3) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 36:
-            if ((target_val >> 2) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 41:
-            if ((target_val >> 1) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 46:
-            if ((target_val) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-        }
-        break;
-      }
-      case COLOR_3: {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-        uint8_t target_val = rgb.b;
+  	  // KeyGroup F9_F12
+      case 50:
+		rgb_matrix_set_color(i, 0, 0, 0);
+		break;
+      case 56:
+		rgb_matrix_set_color(i, 0, 0, 85);
+		break;
+      case 61:
+		rgb_matrix_set_color(i, 0, 0, 171);
+		break;
+      case 66:
+		rgb_matrix_set_color(i, 0, 0, 255);
+		break;
 
-        switch (i) {
-          case 9:
-            if ((target_val >> 7) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 15:
-            if ((target_val >> 6) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 21:
-            if ((target_val >> 5) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 26:
-            if ((target_val >> 4) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 31:
-            if ((target_val >> 3) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 37:
-            if ((target_val >> 2) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 42:
-            if ((target_val >> 1) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 47:
-            if ((target_val) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-        }
-      break;
-      }
-      default: {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-        break;
-      }
-    }
+  	  // KeyGroup COLOR_1
+      case 7:
+		((rgb.r >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 13:
+		((rgb.r >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 19:
+		((rgb.r >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 24:
+		((rgb.r >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 29:
+		((rgb.r >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 35:
+		((rgb.r >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 40:
+		((rgb.r >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 45:
+		((rgb.r >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+
+  	  // KeyGroup COLOR_2
+      case 8:
+		((rgb.g >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 14:
+		((rgb.g >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 20:
+		((rgb.g >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 25:
+		((rgb.g >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 30:
+		((rgb.g >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 36:
+		((rgb.g >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 41:
+		((rgb.g >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 46:
+		((rgb.g >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+
+  	  // KeyGroup COLOR_3
+      case 9:
+		((rgb.b >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 15:
+		((rgb.b >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 21:
+		((rgb.b >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 26:
+		((rgb.b >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 31:
+		((rgb.b >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 37:
+		((rgb.b >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 42:
+		((rgb.b >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 47:
+		((rgb.b >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+
+      default:
+		rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+		break;
+
+	} // switch i
   }
   return rgb_matrix_check_finished_leds(led_max);
 }
 
+// Color experiment: HSV mode
 static bool solid_color_experiment_set_hsv(uint8_t led_min, uint8_t led_max) {
   for (uint8_t i = led_min; i < led_max; i++) {
-    NikkelmaKeyGroup key_group = pin_to_key_group(i);
-    switch (key_group) {
-      case F1_F4: {
-        switch (i) {
-          case 6: {
-            rgb_matrix_set_color(6, 255, 0, 0);
-            break;
-          }
-          case 12: {
-            rgb_matrix_set_color(12, 128, 255, 0);
-            break;
-          }
-          case 18: {
-            rgb_matrix_set_color(18, 0, 255, 255);
-            break;
-          }
-          case 23: {
-            rgb_matrix_set_color(23, 128, 0, 255);
-            break;
-          }
-        }
-      }
-      case F5_F8: {
-        rgb_matrix_set_color(i, RGB_GREEN);
-        break;
-      }
-      case F9_F12: {
-        rgb_matrix_set_color(i, RGB_BLUE);
-        break;
-      }
-      case COLOR_1: {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-        uint8_t target_val = rgb.r;
+    rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
+	switch (i) {
+	  // KeyGroup F1_F4
+	  case 6:
+		rgb_matrix_set_color(i, 255, 0, 0);
+		break;
+      case 12:
+		rgb_matrix_set_color(i, 127, 255, 0);
+		break;
+      case 18:
+		rgb_matrix_set_color(i, 0, 255, 255);
+		break;
+      case 23:
+		rgb_matrix_set_color(i, 127, 0, 255);
+		break;
 
-        switch (i) {
-          case 7:
-            if ((target_val >> 7) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 13:
-            if ((target_val >> 6) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 19:
-            if ((target_val >> 5) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 24:
-            if ((target_val >> 4) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 29:
-            if ((target_val >> 3) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 35:
-            if ((target_val >> 2) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 40:
-            if ((target_val >> 1) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 45:
-            if ((target_val) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-        }
-        break;
-      }
-      case COLOR_2: {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-        uint8_t target_val = rgb.g;
+      // KeyGroup F5_F8
+	  case 28:
+		rgb_matrix_set_color(i, 255, 255, 255);
+		break;
+      case 34:
+		rgb_matrix_set_color(i, 170, 255, 170);
+		break;
+      case 39:
+		rgb_matrix_set_color(i, 84, 255, 84);
+		break;
+      case 44:
+		rgb_matrix_set_color(i, 0, 255, 0);
+		break;
 
-        switch (i) {
-          case 8:
-            if ((target_val >> 7) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 14:
-            if ((target_val >> 6) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 20:
-            if ((target_val >> 5) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 25:
-            if ((target_val >> 4) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 30:
-            if ((target_val >> 3) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 36:
-            if ((target_val >> 2) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 41:
-            if ((target_val >> 1) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 46:
-            if ((target_val) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-        }
-        break;
-      }
-      case COLOR_3: {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-        uint8_t target_val = rgb.b;
+  	  // KeyGroup F9_F12
+      case 50:
+		rgb_matrix_set_color(i, 0, 0, 0);
+		break;
+      case 56:
+		rgb_matrix_set_color(i, 84, 84, 84);
+		break;
+      case 61:
+		rgb_matrix_set_color(i, 170, 170, 170);
+		break;
+      case 66:
+		rgb_matrix_set_color(i, 255, 255, 255);
+		break;
 
-        switch (i) {
-          case 9:
-            if ((target_val >> 7) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 15:
-            if ((target_val >> 6) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 21:
-            if ((target_val >> 5) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 26:
-            if ((target_val >> 4) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 31:
-            if ((target_val >> 3) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 37:
-            if ((target_val >> 2) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 42:
-            if ((target_val >> 1) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-          case 47:
-            if ((target_val) & 0x1) {
-              rgb_matrix_set_color(i, RGB_GREEN);
-            } else {
-              rgb_matrix_set_color(i, RGB_RED);
-            }
-            break;
-        }
-      break;
-      }
-      default: {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-        break;
-      }
-    }
+  	  // KeyGroup COLOR_1
+      case 7:
+		((rgb_matrix_config.hsv.h >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 13:
+		((rgb_matrix_config.hsv.h >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 19:
+		((rgb_matrix_config.hsv.h >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 24:
+		((rgb_matrix_config.hsv.h >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 29:
+		((rgb_matrix_config.hsv.h >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 35:
+		((rgb_matrix_config.hsv.h >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 40:
+		((rgb_matrix_config.hsv.h >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 45:
+		((rgb_matrix_config.hsv.h >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+
+  	  // KeyGroup COLOR_2
+      case 8:
+		((rgb_matrix_config.hsv.s >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 14:
+		((rgb_matrix_config.hsv.s >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 20:
+		((rgb_matrix_config.hsv.s >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 25:
+		((rgb_matrix_config.hsv.s >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 30:
+		((rgb_matrix_config.hsv.s >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 36:
+		((rgb_matrix_config.hsv.s >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 41:
+		((rgb_matrix_config.hsv.s >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 46:
+		((rgb_matrix_config.hsv.s >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+
+  	  // KeyGroup COLOR_3
+      case 9:
+		((rgb_matrix_config.hsv.v >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 15:
+		((rgb_matrix_config.hsv.v >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 21:
+		((rgb_matrix_config.hsv.v >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 26:
+		((rgb_matrix_config.hsv.v >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 31:
+		((rgb_matrix_config.hsv.v >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 37:
+		((rgb_matrix_config.hsv.v >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 42:
+		((rgb_matrix_config.hsv.v >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+      case 47:
+		((rgb_matrix_config.hsv.v >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+		break;
+
+      default:
+		rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+		break;
+
+	} // switch i
   }
   return rgb_matrix_check_finished_leds(led_max);
 }
