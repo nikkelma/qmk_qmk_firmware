@@ -29,27 +29,57 @@ enum NikkelmaKeyGroup {
 
 static NikkelmaKeyGroup pin_to_key_group(uint8_t pin) {
   switch (pin) {
-    case 6, 12, 18, 23: {
+    case 6:
+	case 12:
+	case 18:
+	case 23:
       return F1_F4;
-    }
-    case 28, 34, 39, 44: {
+
+    case 28:
+    case 34:
+    case 39:
+    case 44:
       return F5_F8;
-    }
-    case 50, 56, 61, 66: {
+
+    case 50:
+    case 56:
+    case 61:
+    case 66:
       return F9_F12;
-    }
-    case 7, 13, 19, 24, 29, 35, 40, 45: {
+
+    case 7:
+    case 13:
+    case 19:
+    case 24:
+    case 29:
+    case 35:
+    case 40:
+    case 45:
       return COLOR_1;
-    }
-    case 8, 14, 20, 25, 30, 36, 41, 46: {
+
+    case 8:
+    case 14:
+    case 20:
+    case 25:
+    case 30:
+    case 36:
+    case 41:
+    case 46:
       return COLOR_2;
-    }
-    case 9, 15, 21, 26, 31, 37, 42, 47: {
+
+    case 9:
+    case 15:
+    case 21:
+    case 26:
+    case 31:
+    case 37:
+    case 42:
+    case 47:
       return COLOR_3;
-    }
-    default: {
+
+    default:
       return DEFAULT;
-    }
+
   }
 }
 
