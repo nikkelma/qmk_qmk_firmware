@@ -1,4 +1,6 @@
-/* Copyright 2021 Matt Nikkel <matt.nikkel@hey.com>
+/* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
+   Copyright 2021 Matt Nikkel <matt.nikkel@hey.com>
+
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+
+#include "rgb_matrix_map.h"
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
