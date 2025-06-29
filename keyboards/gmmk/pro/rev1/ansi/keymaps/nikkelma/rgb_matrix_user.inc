@@ -16,7 +16,7 @@ RGB_MATRIX_EFFECT(gmk_gateway_a)
 #define RGB_GATEWAY_BLUE(pin) rgb_matrix_set_color(pin, 0, 133, 255)
 #define RGB_GATEWAY_WHITE(pin) rgb_matrix_set_color(pin, 255, 255, 255)
 
-enum NikkelmaKeyGroup {
+typedef enum NikkelmaKeyGroup {
   UNKNOWN = 0,
   DEFAULT,
   F1_F4,
@@ -25,7 +25,7 @@ enum NikkelmaKeyGroup {
   COLOR_1,
   COLOR_2,
   COLOR_3,
-};
+} NikkelmaKeyGroup;
 
 static NikkelmaKeyGroup pin_to_key_group(uint8_t pin) {
   switch (pin) {
