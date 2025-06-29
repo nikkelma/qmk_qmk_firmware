@@ -3,7 +3,8 @@
 // Step 1.
 // Declare custom effects using the RGB_MATRIX_EFFECT macro
 // (note the lack of semicolon after the macro!)
-RGB_MATRIX_EFFECT(solid_color_experiment)
+RGB_MATRIX_EFFECT(solid_color_debug_rgb)
+RGB_MATRIX_EFFECT(solid_color_debug_hsv)
 RGB_MATRIX_EFFECT(gmk_pulse_a)
 RGB_MATRIX_EFFECT(gmk_gateway_a)
 
@@ -83,10 +84,10 @@ typedef enum NikkelmaKeyGroup {
 //   }
 // }
 
-static bool solid_color_experiment_display_hsv;
-
-// Color experiment: RGB mode
-static bool solid_color_experiment_set_rgb(uint8_t led_min, uint8_t led_max) {
+// Solid color debug (RGB): allow figuring out ideal RGB without constantly
+// reflashing the KB
+static bool solid_color_debug_rgb(effect_params_t* params) {
+  RGB_MATRIX_USE_LIMITS(led_min, led_max);
   for (uint8_t i = led_min; i < led_max; i++) {
     rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
 	switch (i) {
@@ -219,8 +220,10 @@ static bool solid_color_experiment_set_rgb(uint8_t led_min, uint8_t led_max) {
   return rgb_matrix_check_finished_leds(led_max);
 }
 
-// Color experiment: HSV mode
-static bool solid_color_experiment_set_hsv(uint8_t led_min, uint8_t led_max) {
+// Solid color debug (RGB): allow figuring out ideal HSV without constantly
+// reflashing the KB
+static bool solid_color_debug_hsv(effect_params_t* params) {
+  RGB_MATRIX_USE_LIMITS(led_min, led_max);
   for (uint8_t i = led_min; i < led_max; i++) {
     rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
 	switch (i) {
@@ -353,20 +356,6 @@ static bool solid_color_experiment_set_hsv(uint8_t led_min, uint8_t led_max) {
   return rgb_matrix_check_finished_leds(led_max);
 }
 
-// Solid color experiment: allow figuring out ideal RGB / HSV values without
-// constantly reflashing the KB
-static bool solid_color_experiment(effect_params_t* params) {
-  if (params->init) {
-    solid_color_experiment_display_hsv = false;
-  }
-
-  RGB_MATRIX_USE_LIMITS(led_min, led_max);
-  if (solid_color_experiment_display_hsv) {
-    return solid_color_experiment_set_hsv(led_min, led_max);
-  } else {
-    return solid_color_experiment_set_rgb(led_min, led_max);
-  }
-}
 
 // GMK pulse A: static color for GMK pulse keycaps
 static bool gmk_pulse_a(effect_params_t* params) {

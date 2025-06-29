@@ -21,8 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix_map.h"
 
 typedef enum nikkelma_keycodes {
-  NM_HSVM = SAFE_RANGE,
-  NM_HUED,
+  NM_HUED = SAFE_RANGE,
   NM_HUEU
 } nikkelma_keycodes;
 
@@ -60,13 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGB_MATRIX_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  extern bool solid_color_experiment_display_hsv;
   switch (keycode) {
-    case NM_HSVM:
-      if (record->event.pressed) {
-        solid_color_experiment_display_hsv = !solid_color_experiment_display_hsv;
-      }
-      return false; // Skip all further processing of this key
     case NM_HUED:
       if (record->event.pressed) {
         rgb_matrix_config.hsv.h--;
