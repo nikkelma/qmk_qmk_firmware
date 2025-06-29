@@ -20,6 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rgb_matrix_map.h"
 
+typedef enum nikkelma_keycodes {
+  NM_HSVM = SAFE_RANGE,
+  NM_HUED,
+  NM_HUEU
+} nikkelma_keycodes;
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -44,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, RM_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_MPLY,
         _______, _______, RM_VALU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          KC_MNXT,
         _______, _______, RM_VALD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_MPRV,
-        _______,          _______, RM_HUEU, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RM_NEXT, _______,
+        _______,          RM_HUED, RM_HUEU, NM_HUED, NM_HUEU, _______, NK_TOGG, _______, _______, _______, _______,          _______, RM_NEXT, _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, RM_SPDD, RM_PREV, RM_SPDU
     ),
 
@@ -52,6 +58,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 #ifdef RGB_MATRIX_ENABLE
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case NM_HSVM:
+      if (record->event.pressed) {
+        solid_color_experiment_display_hsv = !solid_color_experiment_display_hsv;
+      }
+      return false; // Skip all further processing of this key
+    case NM_HUED:
+      if (record->event.pressed) {
+        rgb_matrix_config.hsv.h--;
+      }
+      return false; // Skip all further processing of this key
+    case NM_HUEU:
+      if (record->event.pressed) {
+        rgb_matrix_config.hsv.h++;
+      }
+      return false; // Skip all further processing of this key
+    default:
+      return true; // Process all other keycodes normally
+  }
+}
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
