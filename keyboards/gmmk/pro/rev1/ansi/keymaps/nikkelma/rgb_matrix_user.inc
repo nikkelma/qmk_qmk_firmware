@@ -12,9 +12,21 @@ RGB_MATRIX_EFFECT(gmk_gateway_a)
 // Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+// Pulse Blue
+// HSV: 112 (uint8_t) / 158 deg, 100, 100
+// RGB: 255, 48, 0
 #define RGB_PULSE_BLUE(pin) rgb_matrix_set_color(pin, 0, 244, 255)
-#define RGB_GATEWAY_ORANGE(pin) rgb_matrix_set_color(pin, 255, 107, 0)
+
+// Gateway Orange
+// HSV: 8 (uint8_t) / 11 deg, 100, 100
+// RGB: 255, 48, 0
+#define RGB_GATEWAY_ORANGE(pin) rgb_matrix_set_color(pin, 255, 48, 0)
+
+// Gateway Orange
+// HSV: 8 (uint8_t) / 11 deg, 100, 100
+// RGB: 255, 48, 0
 #define RGB_GATEWAY_BLUE(pin) rgb_matrix_set_color(pin, 0, 133, 255)
+
 #define RGB_GATEWAY_WHITE(pin) rgb_matrix_set_color(pin, 255, 255, 255)
 
 typedef enum NikkelmaKeyGroup {

@@ -21,8 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix_map.h"
 
 typedef enum nikkelma_keycodes {
-  NM_HUED = SAFE_RANGE,
-  NM_HUEU
+  NMD_HD8 = SAFE_RANGE,
+  NMD_HD1,
+  NMD_HU1,
+  NMD_HU8,
+  NMD_SD8,
+  NMD_SD1,
+  NMD_SU1,
+  NMD_SU8,
+  NMD_VD8,
+  NMD_VD1,
+  NMD_VU1,
+  NMD_VU8,
 } nikkelma_keycodes;
 
 // clang-format off
@@ -45,11 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, NMD_HD8, NMD_HD1, NMD_HU1, NMD_HU8, NMD_SD8, NMD_SD1, NMD_SU1, NMD_SU8, NMD_VD8, NMD_VD1, NMD_VU1, NMD_VU8, _______,          _______,
         _______, RM_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_MPLY,
         _______, _______, RM_VALU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          KC_MNXT,
         _______, _______, RM_VALD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_MPRV,
-        _______,          RM_HUED, RM_HUEU, NM_HUED, NM_HUEU, _______, NK_TOGG, _______, _______, _______, _______,          _______, RM_NEXT, _______,
+        _______,          RM_HUED, RM_HUEU, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RM_NEXT, _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, RM_SPDD, RM_PREV, RM_SPDU
     ),
 
@@ -60,16 +70,66 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case NM_HUED:
+    case NMD_HD8:
       if (record->event.pressed) {
-        rgb_matrix_config.hsv.h--;
+		rgb_matrix_config.hsv.h -= 8;
       }
-      return false; // Skip all further processing of this key
-    case NM_HUEU:
+      return false;
+    case NMD_HD1:
       if (record->event.pressed) {
-        rgb_matrix_config.hsv.h++;
+		rgb_matrix_config.hsv.h -= 1;
       }
-      return false; // Skip all further processing of this key
+      return false;
+    case NMD_HU1:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.h += 1;
+      }
+      return false;
+    case NMD_HU8:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.h += 8;
+      }
+      return false;
+    case NMD_SD8:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.s -= 8;
+      }
+      return false;
+    case NMD_SD1:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.s -= 1;
+      }
+      return false;
+    case NMD_SU1:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.s += 1;
+      }
+      return false;
+    case NMD_SU8:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.s += 8;
+      }
+      return false;
+    case NMD_VD8:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.v -= 8;
+      }
+      return false;
+    case NMD_VD1:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.v -= 1;
+      }
+      return false;
+    case NMD_VU1:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.v += 1;
+      }
+      return false;
+    case NMD_VU8:
+      if (record->event.pressed) {
+		rgb_matrix_config.hsv.v += 8;
+      }
+      return false;
     default:
       return true; // Process all other keycodes normally
   }
