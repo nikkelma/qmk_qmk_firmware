@@ -437,10 +437,10 @@ static bool gmk_gateway_a(effect_params_t* params) {
 	RGB_GATEWAY_BLUE(82); // End
 
 	// Arrows
-	RGB_GATEWAY_BLUE(94); // Up
-	RGB_GATEWAY_BLUE(95); // Left
-	RGB_GATEWAY_BLUE(97); // Down
-	RGB_GATEWAY_BLUE(79); // Right
+	RGB_GATEWAY_ORANGE(94); // Up
+	RGB_GATEWAY_ORANGE(95); // Left
+	RGB_GATEWAY_ORANGE(97); // Down
+	RGB_GATEWAY_ORANGE(79); // Right
 
 	// Numbers line
 	RGB_GATEWAY_ORANGE(1); // ~
