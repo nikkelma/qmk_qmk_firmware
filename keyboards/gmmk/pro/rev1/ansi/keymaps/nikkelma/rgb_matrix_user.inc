@@ -13,18 +13,18 @@ RGB_MATRIX_EFFECT(gmk_gateway_a)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 // Pulse Blue
-// HSV: 112 (uint8_t) / 158 deg, 100, 100
-// RGB: 255, 48, 0
-#define RGB_PULSE_BLUE(pin) rgb_matrix_set_color(pin, 0, 244, 255)
+// HSV: 112 (uint8_t) / 158 deg, 255, 255
+// RGB: 0, 255, 162
+#define RGB_PULSE_BLUE(pin) rgb_matrix_set_color(pin, 0, 255, 162)
 
 // Gateway Orange
-// HSV: 8 (uint8_t) / 11 deg, 100, 100
+// HSV: 8 (uint8_t) / 11 deg, 255, 255
 // RGB: 255, 48, 0
 #define RGB_GATEWAY_ORANGE(pin) rgb_matrix_set_color(pin, 255, 48, 0)
 
-// Gateway Orange
-// HSV: 8 (uint8_t) / 11 deg, 100, 100
-// RGB: 255, 48, 0
+// Gateway Blue
+// HSV: 151 (uint8_t) / 213 deg, 207, 255
+// RGB: 47, 140, 255
 #define RGB_GATEWAY_BLUE(pin) rgb_matrix_set_color(pin, 0, 133, 255)
 
 #define RGB_GATEWAY_WHITE(pin) rgb_matrix_set_color(pin, 255, 255, 255)
@@ -374,7 +374,7 @@ static bool gmk_pulse_a(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
   for (uint8_t i = led_min; i < led_max; i++) {
     RGB_PULSE_BLUE(i);
-//    rgb_matrix_set_color(i, 0xff, 0xff, 0x00);
+    // rgb_matrix_set_color(i, 0xff, 0xff, 0x00);
   }
   return rgb_matrix_check_finished_leds(led_max);
 }
@@ -392,44 +392,42 @@ static bool gmk_pulse_a(effect_params_t* params) {
 //  91, led 08                                                                                                                                                                      92, led 19
 
 static bool gmk_gateway_a(effect_params_t* params) {
-  RGB_MATRIX_USE_LIMITS(led_min, led_max);
+  	RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-  // Left side
-	RGB_GATEWAY_ORANGE(67); // Left LED 01
-	RGB_GATEWAY_ORANGE(70); // Left LED 02
-	RGB_GATEWAY_ORANGE(73); // Left LED 03
-	RGB_GATEWAY_ORANGE(76); // Left LED 04
-	RGB_GATEWAY_ORANGE(80); // Left LED 05
-	RGB_GATEWAY_ORANGE(83); // Left LED 06
-	RGB_GATEWAY_ORANGE(87); // Left LED 07
-	RGB_GATEWAY_ORANGE(91); // Left LED 08
+    // Left side
+    RGB_GATEWAY_ORANGE(67); // Left LED 01
+    RGB_GATEWAY_ORANGE(70); // Left LED 02
+    RGB_GATEWAY_ORANGE(73); // Left LED 03
+    RGB_GATEWAY_ORANGE(76); // Left LED 04
+    RGB_GATEWAY_ORANGE(80); // Left LED 05
+    RGB_GATEWAY_ORANGE(83); // Left LED 06
+    RGB_GATEWAY_ORANGE(87); // Left LED 07
+    RGB_GATEWAY_ORANGE(91); // Left LED 08
 
-	// Right side
-	RGB_GATEWAY_BLUE(68); // Right LED 12
-	RGB_GATEWAY_BLUE(71); // Right LED 13
-	RGB_GATEWAY_BLUE(74); // Right LED 14
-	RGB_GATEWAY_BLUE(77); // Right LED 15
-	RGB_GATEWAY_BLUE(81); // Right LED 16
-	RGB_GATEWAY_BLUE(84); // Right LED 17
-	RGB_GATEWAY_BLUE(88); // Right LED 18
-	RGB_GATEWAY_BLUE(92); // Right LED 19
+    // Right side
+    RGB_GATEWAY_BLUE(68); // Right LED 12
+    RGB_GATEWAY_BLUE(71); // Right LED 13
+    RGB_GATEWAY_BLUE(74); // Right LED 14
+    RGB_GATEWAY_BLUE(77); // Right LED 15
+    RGB_GATEWAY_BLUE(81); // Right LED 16
+    RGB_GATEWAY_BLUE(84); // Right LED 17
+    RGB_GATEWAY_BLUE(88); // Right LED 18
+    RGB_GATEWAY_BLUE(92); // Right LED 19
 
-	// TOP Line keys
-	RGB_GATEWAY_ORANGE(0); // ESC
-	RGB_GATEWAY_ORANGE(6); // F1
-	RGB_GATEWAY_ORANGE(12); // F2
-	RGB_GATEWAY_ORANGE(18); // F3
-	RGB_GATEWAY_ORANGE(23); // F4
-	RGB_GATEWAY_ORANGE(28); // F5
-	RGB_GATEWAY_ORANGE(34); // F6
-	RGB_GATEWAY_ORANGE(39); // F7
-	RGB_GATEWAY_ORANGE(44); // F8
-
+    // TOP Line keys
+    RGB_GATEWAY_ORANGE(0); // ESC
+    RGB_GATEWAY_ORANGE(6); // F1
+    RGB_GATEWAY_ORANGE(12); // F2
+    RGB_GATEWAY_ORANGE(18); // F3
+    RGB_GATEWAY_ORANGE(23); // F4
+    RGB_GATEWAY_BLUE(28); // F5
+    RGB_GATEWAY_BLUE(34); // F6
+    RGB_GATEWAY_BLUE(39); // F7
+    RGB_GATEWAY_BLUE(44); // F8
 	RGB_GATEWAY_BLUE(50); // F9
 	RGB_GATEWAY_BLUE(56); // F10
 	RGB_GATEWAY_BLUE(61); // F11
 	RGB_GATEWAY_BLUE(66); // F12
-
 	RGB_GATEWAY_BLUE(69); // Prt
 
 	// Right Keys
@@ -467,7 +465,7 @@ static bool gmk_gateway_a(effect_params_t* params) {
 	RGB_GATEWAY_ORANGE(20); // E
 	RGB_GATEWAY_ORANGE(25); // R
 	RGB_GATEWAY_ORANGE(30); // T
-	RGB_GATEWAY_ORANGE(36); // Y
+	RGB_GATEWAY_BLUE(36); // Y
 	RGB_GATEWAY_BLUE(41); // U
 	RGB_GATEWAY_BLUE(46); // I
 	RGB_GATEWAY_BLUE(52); // O
@@ -497,7 +495,7 @@ static bool gmk_gateway_a(effect_params_t* params) {
 	RGB_GATEWAY_ORANGE(16); // X
 	RGB_GATEWAY_ORANGE(22); // C
 	RGB_GATEWAY_ORANGE(27); // V
-	RGB_GATEWAY_BLUE(32); // B
+	RGB_GATEWAY_ORANGE(32); // B
 	RGB_GATEWAY_BLUE(38); // N
 	RGB_GATEWAY_BLUE(43); // M
 	RGB_GATEWAY_BLUE(48); // ,<
@@ -509,11 +507,11 @@ static bool gmk_gateway_a(effect_params_t* params) {
 	RGB_GATEWAY_ORANGE(11); // Win_L
 	RGB_GATEWAY_ORANGE(17); // Alt_L
 	RGB_GATEWAY_WHITE(33); // Space
-	RGB_GATEWAY_ORANGE(49); // Alt_R
-	RGB_GATEWAY_ORANGE(55); // Fn
-	RGB_GATEWAY_ORANGE(65); // Ct_R
+	RGB_GATEWAY_BLUE(49); // Alt_R
+	RGB_GATEWAY_BLUE(55); // Fn
+	RGB_GATEWAY_BLUE(65); // Ct_R
 
-  return rgb_matrix_check_finished_leds(led_max);
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 //// e.g: A more complex effect, relying on external methods and state, with
