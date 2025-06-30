@@ -500,6 +500,7 @@ static bool gmk_gateway_a(effect_params_t* params) {
 	RGB_GATEWAY_BLUE(43); // M
 	RGB_GATEWAY_BLUE(48); // ,<
 	RGB_GATEWAY_BLUE(54); // .<
+	RGB_GATEWAY_BLUE(60); // .<
 	RGB_GATEWAY_BLUE(90); // Sh_R
 
 	// Last line
