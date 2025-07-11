@@ -29,354 +29,380 @@ RGB_MATRIX_EFFECT(gmk_gateway_a)
 
 #define RGB_GATEWAY_WHITE(pin) rgb_matrix_set_color(pin, 255, 255, 255)
 
-typedef enum NikkelmaKeyGroup {
-  UNKNOWN = 0,
-  DEFAULT,
-  F1_F4,
-  F5_F8,
-  F9_F12,
-  COLOR_1,
-  COLOR_2,
-  COLOR_3,
-} NikkelmaKeyGroup;
-
-// static NikkelmaKeyGroup pin_to_key_group(uint8_t pin) {
-//   switch (pin) {
-//     case 6:
-// 	case 12:
-// 	case 18:
-// 	case 23:
-//       return F1_F4;
-// 
-//     case 28:
-//     case 34:
-//     case 39:
-//     case 44:
-//       return F5_F8;
-// 
-//     case 50:
-//     case 56:
-//     case 61:
-//     case 66:
-//       return F9_F12;
-// 
-//     case 7:
-//     case 13:
-//     case 19:
-//     case 24:
-//     case 29:
-//     case 35:
-//     case 40:
-//     case 45:
-//       return COLOR_1;
-// 
-//     case 8:
-//     case 14:
-//     case 20:
-//     case 25:
-//     case 30:
-//     case 36:
-//     case 41:
-//     case 46:
-//       return COLOR_2;
-// 
-//     case 9:
-//     case 15:
-//     case 21:
-//     case 26:
-//     case 31:
-//     case 37:
-//     case 42:
-//     case 47:
-//       return COLOR_3;
-// 
-//     default:
-//       return DEFAULT;
-// 
-//   }
-// }
-
 // Solid color debug (RGB): allow figuring out ideal RGB without constantly
 // reflashing the KB
+
+// RGB LED locations
+typedef enum led_location_map {
+    LED_ESC, // 0, ESC, k13
+    LED_GRV, // 1, ~, k16
+    LEB_TAB, // 2, Tab, k11
+    LED_CAPS, // 3, Caps, k21
+    LED_LSFT, // 4, Sh_L, k00
+    LED_LCTL, // 5, Ct_L, k06
+    LED_F1, // 6, F1, k26
+    LED_1, // 7, 1, k17
+    LED_Q, // 8, Q, k10
+    LED_A, // 9, A, k12
+    LED_Z, // 10, Z, k14
+    LED_LWIN, // 11, Win_L, k90
+    LED_F2, // 12, F2, k36
+    LED_2, // 13, 2, k27
+    LED_W, // 14, W, k20
+    LED_S, // 15, S, k22
+    LED_X, // 16, X, k24
+    LED_LALT, // 17, Alt_L, k93
+    LED_F3, // 18, F3, k31
+    LED_3, // 19, 3, k37
+    LED_E, // 20, E, k30
+    LED_D, // 21, D, k32
+    LED_C, // 22, C, k34
+    LED_F4, // 23, F4, k33
+    LED_4, // 24, 4, k47
+    LED_R, // 25, R, k40
+    LED_F, // 26, F, k42
+    LED_V, // 27, V, k44
+    LED_F5, // 28, F5, k07
+    LED_5, // 29, 5, k46
+    LED_T, // 30, T, k41
+    LED_G, // 31, G, k43
+    LED_B, // 32, B, k45
+    LED_SPC, // 33, SPACE, k94
+    LED_F6, // 34, F6, k63
+    LED_6, // 35, 6, k56
+    LED_Y, // 36, Y, k51
+    LED_H, // 37, H, k53
+    LED_N, // 38, N, k55
+    LED_F7, // 39, F7, k71
+    LED_7, // 40, 7, k57
+    LED_U, // 41, U, k50
+    LED_J, // 42, J, k52
+    LED_M, // 43, M, k54
+    LED_F8, // 44, F8, k76
+    LED_8, // 45, 8, k67
+    LED_I, // 46, I, k60
+    LED_K, // 47, K, k62
+    LED_COMM, // 48, ,, k64
+    LED_RALT, // 49, Alt_R, k95
+    LED_F9, // 50, F9, ka6
+    LED_9, // 51, 9, k77
+    LED_O, // 52, O, k70
+    LED_L, // 53, L, k72
+    LED_DOT, // 54, ., k74
+    LED_FN, // 55, FN, k92
+    LED_F10, // 56, F10, ka7
+    LED_0, // 57, 0, k87
+    LED_P, // 58, P, k80
+    LED_SCLN, // 59, ;, k82
+    LED_SLSH, // 60, ?, k85
+    LED_F11, // 61, F11, ka3
+    LED_MINS, // 62, -, k86
+    LED_LBRC, // 63, [, k81
+    LED_QUOT, // 64, ", k83
+    LED_RCTL, // 65, Ct_R, k04
+    LED_F12, // 66, F12, ka5
+    LED_L1, // 67, LED, l01
+    LED_R1, // 68, LED, l11
+    LED_DEL, // 69, Prt, k97  -- remapped to Del
+    LED_L2, // 70, LED, l02
+    LED_R2, // 71, LED, l12
+    LED_HOME, // 72, Del, k65 -- remapped to Home
+    LED_L3, // 73, LED, l03
+    LED_R3, // 74, LED, l13
+    LED_END, // 75, PgUp, k15 -- remapped to End
+    LED_L4, // 76, LED, l04
+    LED_R4, // 77, LED, l14
+    LED_EQL, // 78, =, k66
+    LED_RIGHT, // 79, Right, k05
+    LED_L5, // 80, LED, l05
+    LED_R5, // 81, LED, l15
+    LED_PGDN, // 82, End, k75 -- remapped to PgDn
+    LED_L6, // 83, LED, l06
+    LED_R6, // 84, LED, l16
+    LED_BSPC, // 85, BSpc, ka1
+    LED_PGUP, // 86, PgDn, k25 -- remapped to PgUp
+    LED_L7, // 87, LED, l07
+    LED_R7, // 88, LED, l17
+    LED_RBRC, // 89, ], k61
+    LED_RSFT, // 90, Sh_R, k91
+    LED_L8, // 91, LED, l08
+    LED_R8, // 92, LED, l18
+    LED_BSLS, // 93, \, ka2
+    LED_UP, // 94, Up, k35
+    LED_LEFT, // 95, Left, k03
+    LED_ENT, // 96, Enter, ka4
+    LED_DOWN // 97, Down, k73
+} led_location_map;
+
 static bool solid_color_debug_rgb(effect_params_t* params) {
-  RGB_MATRIX_USE_LIMITS(led_min, led_max);
-  for (uint8_t i = led_min; i < led_max; i++) {
-    rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-	switch (i) {
-	  // KeyGroup F1_F4
-	  case 6:
-		rgb_matrix_set_color(i, 0, 0, 0);
-		break;
-      case 12:
-		rgb_matrix_set_color(i, 85, 0, 0);
-		break;
-      case 18:
-		rgb_matrix_set_color(i, 170, 0, 0);
-		break;
-      case 23:
-		rgb_matrix_set_color(i, 255, 0, 0);
-		break;
+    RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-      // KeyGroup F5_F8
-	  case 28:
-		rgb_matrix_set_color(i, 0, 0, 0);
-		break;
-      case 34:
-		rgb_matrix_set_color(i, 0, 85, 0);
-		break;
-      case 39:
-		rgb_matrix_set_color(i, 0, 171, 0);
-		break;
-      case 44:
-		rgb_matrix_set_color(i, 0, 255, 0);
-		break;
+    for (uint8_t i = led_min; i < led_max; i++) {
+        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
+        switch (i) {
+            case LED_F1:
+                rgb_matrix_set_color(i, 0, 0, 0);
+                break;
+            case LED_F2:
+                rgb_matrix_set_color(i, 85, 0, 0);
+                break;
+            case LED_F3:
+                rgb_matrix_set_color(i, 170, 0, 0);
+                break;
+            case LED_F4:
+                rgb_matrix_set_color(i, 255, 0, 0);
+                break;
 
-  	  // KeyGroup F9_F12
-      case 50:
-		rgb_matrix_set_color(i, 0, 0, 0);
-		break;
-      case 56:
-		rgb_matrix_set_color(i, 0, 0, 85);
-		break;
-      case 61:
-		rgb_matrix_set_color(i, 0, 0, 171);
-		break;
-      case 66:
-		rgb_matrix_set_color(i, 0, 0, 255);
-		break;
+            case LED_F5:
+                rgb_matrix_set_color(i, 0, 0, 0);
+                break;
+            case LED_F6:
+                rgb_matrix_set_color(i, 0, 85, 0);
+                break;
+            case LED_F7:
+                rgb_matrix_set_color(i, 0, 171, 0);
+                break;
+            case LED_F8:
+                rgb_matrix_set_color(i, 0, 255, 0);
+                break;
 
-  	  // KeyGroup COLOR_1
-      case 7:
-		((rgb.r >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 13:
-		((rgb.r >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 19:
-		((rgb.r >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 24:
-		((rgb.r >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 29:
-		((rgb.r >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 35:
-		((rgb.r >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 40:
-		((rgb.r >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 45:
-		((rgb.r >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
+            case LED_F9:
+                rgb_matrix_set_color(i, 0, 0, 0);
+                break;
+            case LED_F10:
+                rgb_matrix_set_color(i, 0, 0, 85);
+                break;
+            case LED_F11:
+                rgb_matrix_set_color(i, 0, 0, 171);
+                break;
+            case LED_F12:
+                rgb_matrix_set_color(i, 0, 0, 255);
+                break;
 
-  	  // KeyGroup COLOR_2
-      case 8:
-		((rgb.g >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 14:
-		((rgb.g >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 20:
-		((rgb.g >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 25:
-		((rgb.g >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 30:
-		((rgb.g >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 36:
-		((rgb.g >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 41:
-		((rgb.g >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 46:
-		((rgb.g >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
+            case LED_1:
+                ((rgb.r >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_2:
+                ((rgb.r >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_3:
+                ((rgb.r >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_4:
+                ((rgb.r >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_5:
+                ((rgb.r >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_6:
+                ((rgb.r >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_7:
+                ((rgb.r >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_8:
+                ((rgb.r >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
 
-  	  // KeyGroup COLOR_3
-      case 9:
-		((rgb.b >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 15:
-		((rgb.b >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 21:
-		((rgb.b >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 26:
-		((rgb.b >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 31:
-		((rgb.b >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 37:
-		((rgb.b >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 42:
-		((rgb.b >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 47:
-		((rgb.b >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
+            case LED_Q:
+                ((rgb.g >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_W:
+                ((rgb.g >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_E:
+                ((rgb.g >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_R:
+                ((rgb.g >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_T:
+                ((rgb.g >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_Y:
+                ((rgb.g >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_U:
+                ((rgb.g >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_I:
+                ((rgb.g >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
 
-      default:
-		rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-		break;
+            case LED_A:
+                ((rgb.b >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_S:
+                ((rgb.b >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_D:
+                ((rgb.b >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_F:
+                ((rgb.b >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_G:
+                ((rgb.b >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_H:
+                ((rgb.b >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_J:
+                ((rgb.b >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_K:
+                ((rgb.b >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
 
-	} // switch i
-  }
-  return rgb_matrix_check_finished_leds(led_max);
+            default:
+                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+                break;
+
+        } // switch i
+    }
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 // Solid color debug (RGB): allow figuring out ideal HSV without constantly
 // reflashing the KB
 static bool solid_color_debug_hsv(effect_params_t* params) {
-  RGB_MATRIX_USE_LIMITS(led_min, led_max);
-  for (uint8_t i = led_min; i < led_max; i++) {
-    rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-	switch (i) {
-	  // KeyGroup F1_F4
-	  case 6:
-		rgb_matrix_set_color(i, 255, 0, 0);
-		break;
-      case 12:
-		rgb_matrix_set_color(i, 127, 255, 0);
-		break;
-      case 18:
-		rgb_matrix_set_color(i, 0, 255, 255);
-		break;
-      case 23:
-		rgb_matrix_set_color(i, 127, 0, 255);
-		break;
+    RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-      // KeyGroup F5_F8
-	  case 28:
-		rgb_matrix_set_color(i, 255, 255, 255);
-		break;
-      case 34:
-		rgb_matrix_set_color(i, 170, 255, 170);
-		break;
-      case 39:
-		rgb_matrix_set_color(i, 84, 255, 84);
-		break;
-      case 44:
-		rgb_matrix_set_color(i, 0, 255, 0);
-		break;
+    for (uint8_t i = led_min; i < led_max; i++) {
+        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
+	    switch (i) {
+            case LED_F1:
+                rgb_matrix_set_color(i, 255, 0, 0);
+                break;
+            case LED_F2:
+                rgb_matrix_set_color(i, 127, 255, 0);
+                break;
+            case LED_F3:
+                rgb_matrix_set_color(i, 0, 255, 255);
+                break;
+            case LED_F4:
+                rgb_matrix_set_color(i, 127, 0, 255);
+                break;
 
-  	  // KeyGroup F9_F12
-      case 50:
-		rgb_matrix_set_color(i, 0, 0, 0);
-		break;
-      case 56:
-		rgb_matrix_set_color(i, 84, 84, 84);
-		break;
-      case 61:
-		rgb_matrix_set_color(i, 170, 170, 170);
-		break;
-      case 66:
-		rgb_matrix_set_color(i, 255, 255, 255);
-		break;
+            case LED_F5:
+                rgb_matrix_set_color(i, 255, 255, 255);
+                break;
+            case LED_F6:
+                rgb_matrix_set_color(i, 170, 255, 170);
+                break;
+            case LED_F7:
+                rgb_matrix_set_color(i, 84, 255, 84);
+                break;
+            case LED_F8:
+                rgb_matrix_set_color(i, 0, 255, 0);
+                break;
 
-  	  // KeyGroup COLOR_1
-      case 7:
-		((rgb_matrix_config.hsv.h >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 13:
-		((rgb_matrix_config.hsv.h >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 19:
-		((rgb_matrix_config.hsv.h >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 24:
-		((rgb_matrix_config.hsv.h >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 29:
-		((rgb_matrix_config.hsv.h >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 35:
-		((rgb_matrix_config.hsv.h >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 40:
-		((rgb_matrix_config.hsv.h >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 45:
-		((rgb_matrix_config.hsv.h >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
+            case LED_F9:
+                rgb_matrix_set_color(i, 0, 0, 0);
+                break;
+            case LED_F10:
+                rgb_matrix_set_color(i, 84, 84, 84);
+                break;
+            case LED_F11:
+                rgb_matrix_set_color(i, 170, 170, 170);
+                break;
+            case LED_F12:
+                rgb_matrix_set_color(i, 255, 255, 255);
+                break;
 
-  	  // KeyGroup COLOR_2
-      case 8:
-		((rgb_matrix_config.hsv.s >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 14:
-		((rgb_matrix_config.hsv.s >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 20:
-		((rgb_matrix_config.hsv.s >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 25:
-		((rgb_matrix_config.hsv.s >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 30:
-		((rgb_matrix_config.hsv.s >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 36:
-		((rgb_matrix_config.hsv.s >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 41:
-		((rgb_matrix_config.hsv.s >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 46:
-		((rgb_matrix_config.hsv.s >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
+            case LED_1:
+                ((rgb_matrix_config.hsv.h >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_2:
+                ((rgb_matrix_config.hsv.h >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_3:
+                ((rgb_matrix_config.hsv.h >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_4:
+                ((rgb_matrix_config.hsv.h >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_5:
+                ((rgb_matrix_config.hsv.h >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_6:
+                ((rgb_matrix_config.hsv.h >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_7:
+                ((rgb_matrix_config.hsv.h >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_8:
+                ((rgb_matrix_config.hsv.h >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
 
-  	  // KeyGroup COLOR_3
-      case 9:
-		((rgb_matrix_config.hsv.v >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 15:
-		((rgb_matrix_config.hsv.v >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 21:
-		((rgb_matrix_config.hsv.v >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 26:
-		((rgb_matrix_config.hsv.v >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 31:
-		((rgb_matrix_config.hsv.v >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 37:
-		((rgb_matrix_config.hsv.v >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 42:
-		((rgb_matrix_config.hsv.v >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
-      case 47:
-		((rgb_matrix_config.hsv.v >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
-		break;
+            case LED_Q:
+                ((rgb_matrix_config.hsv.s >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_W:
+                ((rgb_matrix_config.hsv.s >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_E:
+                ((rgb_matrix_config.hsv.s >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_R:
+                ((rgb_matrix_config.hsv.s >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_T:
+                ((rgb_matrix_config.hsv.s >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_Y:
+                ((rgb_matrix_config.hsv.s >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_U:
+                ((rgb_matrix_config.hsv.s >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_I:
+                ((rgb_matrix_config.hsv.s >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
 
-      default:
-		rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-		break;
+            case LED_A:
+                ((rgb_matrix_config.hsv.v >> 7) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_S:
+                ((rgb_matrix_config.hsv.v >> 6) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_D:
+                ((rgb_matrix_config.hsv.v >> 5) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_F:
+                ((rgb_matrix_config.hsv.v >> 4) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_G:
+                ((rgb_matrix_config.hsv.v >> 3) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_H:
+                ((rgb_matrix_config.hsv.v >> 2) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_J:
+                ((rgb_matrix_config.hsv.v >> 1) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case LED_K:
+                ((rgb_matrix_config.hsv.v >> 0) & 1) ? rgb_matrix_set_color(i, RGB_GREEN) : rgb_matrix_set_color(i, RGB_RED);
+                break;
 
-	} // switch i
-  }
-  return rgb_matrix_check_finished_leds(led_max);
+            default:
+                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+                break;
+
+        } // switch i
+    }
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 
 // GMK pulse A: static color for GMK pulse keycaps
 static bool gmk_pulse_a(effect_params_t* params) {
-  RGB_MATRIX_USE_LIMITS(led_min, led_max);
-  for (uint8_t i = led_min; i < led_max; i++) {
-    RGB_PULSE_BLUE(i);
-    // rgb_matrix_set_color(i, 0xff, 0xff, 0x00);
-  }
-  return rgb_matrix_check_finished_leds(led_max);
+    RGB_MATRIX_USE_LIMITS(led_min, led_max);
+    for (uint8_t i = led_min; i < led_max; i++) {
+        RGB_PULSE_BLUE(i);
+        // rgb_matrix_set_color(i, 0xff, 0xff, 0x00);
+    }
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 // GMK Gateway A: static colors for GMK gateway keycaps
@@ -394,124 +420,164 @@ static bool gmk_pulse_a(effect_params_t* params) {
 static bool gmk_gateway_a(effect_params_t* params) {
   	RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-    // Left side
-    RGB_GATEWAY_ORANGE(67); // Left LED 01
-    RGB_GATEWAY_ORANGE(70); // Left LED 02
-    RGB_GATEWAY_ORANGE(73); // Left LED 03
-    RGB_GATEWAY_ORANGE(76); // Left LED 04
-    RGB_GATEWAY_ORANGE(80); // Left LED 05
-    RGB_GATEWAY_ORANGE(83); // Left LED 06
-    RGB_GATEWAY_ORANGE(87); // Left LED 07
-    RGB_GATEWAY_ORANGE(91); // Left LED 08
+	for (uint8_t i = led_min; i < led_max; i++) {
+        switch (i) {
+			// Left LEDs
+			case LED_L1:
+			case LED_L2:
+			case LED_L3:
+			case LED_L4:
+			case LED_L5:
+			case LED_L6:
+			case LED_L7:
+			case LED_L8:
+				RGB_GATEWAY_ORANGE(i);
+				break;
 
-    // Right side
-    RGB_GATEWAY_BLUE(68); // Right LED 12
-    RGB_GATEWAY_BLUE(71); // Right LED 13
-    RGB_GATEWAY_BLUE(74); // Right LED 14
-    RGB_GATEWAY_BLUE(77); // Right LED 15
-    RGB_GATEWAY_BLUE(81); // Right LED 16
-    RGB_GATEWAY_BLUE(84); // Right LED 17
-    RGB_GATEWAY_BLUE(88); // Right LED 18
-    RGB_GATEWAY_BLUE(92); // Right LED 19
+			// Right LEDs
+			case LED_R1:
+			case LED_R2:
+			case LED_R3:
+			case LED_R4:
+			case LED_R5:
+			case LED_R6:
+			case LED_R7:
+			case LED_R8:
+				RGB_GATEWAY_BLUE(i);
+				break;
 
-    // TOP Line keys
-    RGB_GATEWAY_ORANGE(0); // ESC
-    RGB_GATEWAY_ORANGE(6); // F1
-    RGB_GATEWAY_ORANGE(12); // F2
-    RGB_GATEWAY_ORANGE(18); // F3
-    RGB_GATEWAY_ORANGE(23); // F4
-    RGB_GATEWAY_BLUE(28); // F5
-    RGB_GATEWAY_BLUE(34); // F6
-    RGB_GATEWAY_BLUE(39); // F7
-    RGB_GATEWAY_BLUE(44); // F8
-	RGB_GATEWAY_BLUE(50); // F9
-	RGB_GATEWAY_BLUE(56); // F10
-	RGB_GATEWAY_BLUE(61); // F11
-	RGB_GATEWAY_BLUE(66); // F12
-	RGB_GATEWAY_BLUE(69); // Prt
+			// row 1 (F keys)
+			case LED_ESC:
+			case LED_F1:
+			case LED_F2:
+			case LED_F3:
+			case LED_F4:
+				RGB_GATEWAY_ORANGE(i);
+				break;
+			case LED_F5:
+			case LED_F6:
+			case LED_F7:
+			case LED_F8:
+			case LED_F9:
+			case LED_F10:
+			case LED_F11:
+			case LED_F12:
+			case LED_DEL: // case LED_PRT
+				RGB_GATEWAY_BLUE(i);
+				break;
 
-	// Right Keys
-	RGB_GATEWAY_BLUE(72); // Home
-	RGB_GATEWAY_BLUE(75); // PgUp
-	RGB_GATEWAY_BLUE(86); // PgDown
-	RGB_GATEWAY_BLUE(82); // End
+			// row 2 (number keys)
+			case LED_GRV:
+			case LED_1:
+			case LED_2:
+			case LED_3:
+			case LED_4:
+			case LED_5:
+				RGB_GATEWAY_ORANGE(i);
+				break;
+			case LED_6:
+			case LED_7:
+			case LED_8:
+			case LED_9:
+			case LED_0:
+			case LED_MINS:
+			case LED_EQL:
+			case LED_BSPC:
+				RGB_GATEWAY_BLUE(i);
+				break;
 
-	// Arrows
-	RGB_GATEWAY_ORANGE(94); // Up
-	RGB_GATEWAY_ORANGE(95); // Left
-	RGB_GATEWAY_ORANGE(97); // Down
-	RGB_GATEWAY_ORANGE(79); // Right
+			// row 3 (QWERTY)
+			case LED_TAB:
+            case LED_Q:
+            case LED_W:
+            case LED_E:
+            case LED_R:
+            case LED_T:
+				RGB_GATEWAY_ORANGE(i);
+				break;
+            case LED_Y:
+            case LED_U:
+            case LED_I:
+            case LED_O:
+            case LED_P:
+			case LED_LBRC:
+			case LED_RBRC:
+			case LED_BSLS:
+				RGB_GATEWAY_BLUE(i);
+				break;
 
-	// Numbers line
-	RGB_GATEWAY_ORANGE(1); // ~
-	RGB_GATEWAY_ORANGE(7); // 1
-	RGB_GATEWAY_ORANGE(13); // 2
-	RGB_GATEWAY_ORANGE(19); // 3
-	RGB_GATEWAY_ORANGE(24); // 4
-	RGB_GATEWAY_ORANGE(29); // 5
-	RGB_GATEWAY_BLUE(35); // 6
-	RGB_GATEWAY_BLUE(40); // 7
-	RGB_GATEWAY_BLUE(45); // 8
-	RGB_GATEWAY_BLUE(51); // 9
-	RGB_GATEWAY_BLUE(57); // 0
-	RGB_GATEWAY_BLUE(62); // -_
-	RGB_GATEWAY_BLUE(78); // =+
-	RGB_GATEWAY_BLUE(85); // BackSpc
+			// row 4 (ASDF)
+            case LED_CAPS:
+            case LED_A:
+            case LED_S:
+            case LED_D:
+            case LED_F:
+            case LED_G:
+				RGB_GATEWAY_ORANGE(i);
+				break;
+            case LED_H:
+            case LED_J:
+            case LED_K:
+            case LED_L:
+            case LED_SCLN:
+            case LED_QUOT:
+            case LED_ENT:
+				RGB_GATEWAY_BLUE(i);
+				break;
 
-	// First Letters line
-	RGB_GATEWAY_ORANGE(2); // Tab
-	RGB_GATEWAY_ORANGE(8); // Q
-	RGB_GATEWAY_ORANGE(14); // W
-	RGB_GATEWAY_ORANGE(20); // E
-	RGB_GATEWAY_ORANGE(25); // R
-	RGB_GATEWAY_ORANGE(30); // T
-	RGB_GATEWAY_BLUE(36); // Y
-	RGB_GATEWAY_BLUE(41); // U
-	RGB_GATEWAY_BLUE(46); // I
-	RGB_GATEWAY_BLUE(52); // O
-	RGB_GATEWAY_BLUE(58); // P
-	RGB_GATEWAY_BLUE(63); // [{
-	RGB_GATEWAY_BLUE(89); // ]}
-	RGB_GATEWAY_BLUE(93); // \|
+			// row 5 (ZXCV)
+            case LED_LSFT:
+            case LED_Z:
+            case LED_X:
+            case LED_C:
+            case LED_V:
+            case LED_B:
+				RGB_GATEWAY_ORANGE(i);
+				break;
+            case LED_N:
+            case LED_M:
+            case LED_COMM:
+            case LED_DOT:
+            case LED_SLSH:
+            case LED_RSFT:
+				RGB_GATEWAY_BLUE(i);
+				break;
 
-	// Second Letters line
-	RGB_GATEWAY_ORANGE(3); // Caps
-	RGB_GATEWAY_ORANGE(9); // A
-	RGB_GATEWAY_ORANGE(15); // S
-	RGB_GATEWAY_ORANGE(21); // D
-	RGB_GATEWAY_ORANGE(26); // F
-	RGB_GATEWAY_ORANGE(31); // G
-	RGB_GATEWAY_BLUE(37); // H
-	RGB_GATEWAY_BLUE(42); // J
-	RGB_GATEWAY_BLUE(47); // K
-	RGB_GATEWAY_BLUE(53); // L
-	RGB_GATEWAY_BLUE(59); // ;:
-	RGB_GATEWAY_BLUE(64); // '"
-	RGB_GATEWAY_BLUE(96); // Enter
+			// row 6 (modifiers + space)
+            case LED_LCTL:
+            case LED_LWIN:
+            case LED_LALT:
+				RGB_GATEWAY_ORANGE(i);
+				break;
+			case LED_SPC:
+				RGB_GATEWAY_WHITE(i);
+				break;
+            case LED_RALT:
+            case LED_FN:
+            case LED_RCTL:
+				RGB_GATEWAY_BLUE(i);
+				break;
 
-	// Third Letters line
-	RGB_GATEWAY_ORANGE(4); // L_Shift
-	RGB_GATEWAY_ORANGE(10); // Z
-	RGB_GATEWAY_ORANGE(16); // X
-	RGB_GATEWAY_ORANGE(22); // C
-	RGB_GATEWAY_ORANGE(27); // V
-	RGB_GATEWAY_ORANGE(32); // B
-	RGB_GATEWAY_BLUE(38); // N
-	RGB_GATEWAY_BLUE(43); // M
-	RGB_GATEWAY_BLUE(48); // ,<
-	RGB_GATEWAY_BLUE(54); // .<
-	RGB_GATEWAY_BLUE(60); // .<
-	RGB_GATEWAY_BLUE(90); // Sh_R
+			// side keys
+            case LED_HOME:
+            case LED_END:
+            case LED_PGUP:
+            case LED_PGDN:
+				RGB_GATEWAY_BLUE(i);
+				break;
 
-	// Last line
-	RGB_GATEWAY_ORANGE(5); // Ct_L
-	RGB_GATEWAY_ORANGE(11); // Win_L
-	RGB_GATEWAY_ORANGE(17); // Alt_L
-	RGB_GATEWAY_WHITE(33); // Space
-	RGB_GATEWAY_BLUE(49); // Alt_R
-	RGB_GATEWAY_BLUE(55); // Fn
-	RGB_GATEWAY_BLUE(65); // Ct_R
+			// arrow keys
+            case LED_UP:
+            case LED_LEFT:
+            case LED_DOWN:
+            case LED_RIGHT:
+				RGB_GATEWAY_ORANGE(i);
+				break;
 
+			default:
+				rgb_matrix_set_color(i, 0xff, 0x00, 0x00);
+
+    }
     return rgb_matrix_check_finished_leds(led_max);
 }
 
