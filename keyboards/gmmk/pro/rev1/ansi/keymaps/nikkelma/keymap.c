@@ -69,70 +69,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGB_MATRIX_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case NMD_HD8:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.h -= 8;
-      }
-      return false;
-    case NMD_HD1:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.h -= 1;
-      }
-      return false;
-    case NMD_HU1:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.h += 1;
-      }
-      return false;
-    case NMD_HU8:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.h += 8;
-      }
-      return false;
-    case NMD_SD8:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.s -= 8;
-      }
-      return false;
-    case NMD_SD1:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.s -= 1;
-      }
-      return false;
-    case NMD_SU1:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.s += 1;
-      }
-      return false;
-    case NMD_SU8:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.s += 8;
-      }
-      return false;
-    case NMD_VD8:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.v -= 8;
-      }
-      return false;
-    case NMD_VD1:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.v -= 1;
-      }
-      return false;
-    case NMD_VU1:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.v += 1;
-      }
-      return false;
-    case NMD_VU8:
-      if (record->event.pressed) {
-		rgb_matrix_config.hsv.v += 8;
-      }
-      return false;
-    default:
-      return true; // Process all other keycodes normally
-  }
+    switch (keycode) {
+		// TODO - use qadd8 function and related functions
+        case NMD_HD8:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.h -= 8;
+            }
+            return false;
+        case NMD_HD1:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.h -= 1;
+            }
+            return false;
+        case NMD_HU1:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.h += 1;
+            }
+            return false;
+        case NMD_HU8:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.h += 8;
+            }
+            return false;
+        case NMD_SD8:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.s -= 8;
+            }
+            return false;
+        case NMD_SD1:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.s -= 1;
+            }
+            return false;
+        case NMD_SU1:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.s += 1;
+            }
+            return false;
+        case NMD_SU8:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.s += 8;
+            }
+            return false;
+        case NMD_VD8:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.v -= 8;
+            }
+            return false;
+        case NMD_VD1:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.v -= 1;
+            }
+            return false;
+            case NMD_VU1:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.v += 1;
+            }
+            return false;
+        case NMD_VU8:
+            if (record->event.pressed) {
+                rgb_matrix_config.hsv.v += 8;
+            }
+            return false;
+        default:
+            return true; // Process all other keycodes normally
+    }
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
