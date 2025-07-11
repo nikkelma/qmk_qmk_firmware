@@ -23,4 +23,4 @@
 
 // allows keyboard to work after sleep on MacOS
 // credit: gmmk/pro/ansi:mike1808 config.h
-#define NO_USB_STARTUP_CHECK
+// #define NO_USB_STARTUP_CHECK
