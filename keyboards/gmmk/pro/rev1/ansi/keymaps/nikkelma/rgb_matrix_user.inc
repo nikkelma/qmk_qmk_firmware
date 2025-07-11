@@ -36,7 +36,7 @@ RGB_MATRIX_EFFECT(gmk_gateway_a)
 typedef enum led_location_map {
     LED_ESC, // 0, ESC, k13
     LED_GRV, // 1, ~, k16
-    LEB_TAB, // 2, Tab, k11
+    LED_TAB, // 2, Tab, k11
     LED_CAPS, // 3, Caps, k21
     LED_LSFT, // 4, Sh_L, k00
     LED_LCTL, // 5, Ct_L, k06
@@ -400,7 +400,6 @@ static bool gmk_pulse_a(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_PULSE_BLUE(i);
-        // rgb_matrix_set_color(i, 0xff, 0xff, 0x00);
     }
     return rgb_matrix_check_finished_leds(led_max);
 }
