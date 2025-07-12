@@ -37,7 +37,7 @@ python -m pip install qmk
 
 qmk setup
 
-qmk config user.keyboard=gmmk/pro/rev1/ansi
+qmk config user.keyboard=gmmk/pro/rev1/ansi-nikkelma
 qmk config user.keymap=nikkelma
 
 qmk compile
