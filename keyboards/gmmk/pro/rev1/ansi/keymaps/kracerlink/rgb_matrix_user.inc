@@ -462,7 +462,7 @@ static led_location_map left_leds_arr[8] = {LED_L1, LED_L2, LED_L3, LED_L4, LED_
 static led_location_map right_leds_arr[8] = {LED_R1, LED_R2, LED_R3, LED_R4, LED_R5, LED_R6, LED_R7, LED_R8};
 
 static uint8_t hue_base = 0;
-static uint8_t hue_base_manual = 0;
+// static uint8_t hue_base_manual = 0;
 // TODO - precompute all one-time period / speed / hue values?
 static uint8_t speed_config;
 static uint16_t timer_last_ms;
@@ -496,7 +496,7 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
     if (params->init) {
         speed_config = rgb_matrix_config.speed;
 
-        timer_last = timer_read();
+        timer_last_ms = timer_read();
         for (uint8_t i = 0; i < 8; i++) {
             uint8_t led_hue_left = led_hue_offset(left_leds_arr[i]);
             uint8_t led_hue_right = led_hue_offset(right_leds_arr[i]);
@@ -519,8 +519,6 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
     for (uint8_t i = led_min; i < led_max; i++) {
-        rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
-
         switch (i) {
             // Left LEDs
             case LED_L1:
@@ -542,7 +540,7 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
             case LED_R7:
             case LED_R8:
                 uint8_t led_hue = hue_base + led_hue_offset(i);
-                hsv_t spectrum_hsv = {led_hue, rgb_matrix_config.s, rgb_matrix_config.v};
+                hsv_t spectrum_hsv = {led_hue, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
                 rgb_t spectrum_rgb = hsv_to_rgb(spectrum_hsv);
                 rgb_matrix_set_color(i, spectrum_rgb.r, spectrum_rgb.g, spectrum_rgb.b);
                 break;
