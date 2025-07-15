@@ -482,10 +482,10 @@ static void update_hue_base(void) {
     }
 
     uint16_t timer_cur_ms = timer_read();
-    uint16_t elapsed_ms = timer_cur_ms - timer_last_ms + remainder;
+    uint16_t elapsed_ms = timer_cur_ms - timer_last_ms + remainder_ms;
 
     uint8_t hue_adjust = (elapsed_ms / ms_per_hue);
-    remainder = elapsed_ms % ms_per_hue;
+    remainder_ms = elapsed_ms % ms_per_hue;
 
     timer_last_ms = timer_cur_ms;
 }
