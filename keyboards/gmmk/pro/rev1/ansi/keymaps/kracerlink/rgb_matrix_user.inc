@@ -570,6 +570,8 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
                     default_hsv_inv.h -= 128;
                     rgb_t default_rgb_inv = hsv_to_rgb(default_hsv_inv);
                     rgb_matrix_set_color(i, default_rgb_inv.r, default_rgb_inv.g, default_rgb_inv.b);
+                } else {
+                    rgb_matrix_set_color(i, default_rgb.r, default_rgb.g, default_rgb.b);
                 }
                 break;
 
