@@ -475,7 +475,7 @@ static uint16_t ms_per_hue_config(uint8_t speed_config) {
     return 256 - speed_config;
 }
 
-static void update_hue_base() {
+static void update_hue_base(void) {
     uint16_t ms_per_hue = ms_per_hue_config(speed_config);
     if (ms_per_hue == 0) {
         return;
