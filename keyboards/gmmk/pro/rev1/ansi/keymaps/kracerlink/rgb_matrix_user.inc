@@ -459,7 +459,7 @@ rgb_matrix_config.speed = 0 ->   static
 */
 
 static led_location_map left_leds_arr[8] = {LED_L1, LED_L2, LED_L3, LED_L4, LED_L5, LED_L6, LED_L7, LED_L8};
-static led_location_map right_leds_arr[8] = {LED_R1, LED_R2, LED_R3, LED_R4, LED_R5, LED_R6, LED_R7, LED_R8}
+static led_location_map right_leds_arr[8] = {LED_R1, LED_R2, LED_R3, LED_R4, LED_R5, LED_R6, LED_R7, LED_R8};
 
 static uint8_t hue_base = 0;
 static uint8_t hue_base_manual = 0;
