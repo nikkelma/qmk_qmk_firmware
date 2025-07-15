@@ -565,7 +565,7 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
                 rgb_matrix_set_color(i, default_rgb.r, default_rgb.g, default_rgb.b);
                 break;
             case LED_PRT:
-                if (IS_LAYER_ON(2)) {
+                if (layer_state_is(2)) {
                     hsv_t default_hsv_inv = rgb_matrix_config.hsv;
                     default_hsv_inv.h -= 128;
                     rgb_t default_rgb_inv = hsv_to_rgb(default_hsv_inv);
