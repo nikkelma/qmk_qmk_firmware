@@ -486,6 +486,7 @@ static void update_hue_base(void) {
 
     uint8_t hue_adjust = (elapsed_ms / ms_per_hue);
     remainder_ms = elapsed_ms % ms_per_hue;
+    hue_base += hue_adjust;
 
     timer_last_ms = timer_cur_ms;
 }
