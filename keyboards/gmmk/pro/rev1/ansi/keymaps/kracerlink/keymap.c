@@ -102,22 +102,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NMC_HD8:
             if (record->event.pressed) {
-                rgb_matrix_config.hsv.h = qsub8(rgb_matrix_config.hsv.h, 8);
+                rgb_matrix_config.hsv.h -= 8;
             }
             return false;
         case NMC_HD1:
             if (record->event.pressed) {
-                rgb_matrix_config.hsv.h = qsub8(rgb_matrix_config.hsv.h, 1);
+                rgb_matrix_config.hsv.h -= 1);
             }
             return false;
         case NMC_HU1:
             if (record->event.pressed) {
-                rgb_matrix_config.hsv.h = qadd8(rgb_matrix_config.hsv.h, 1);
+                rgb_matrix_config.hsv.h += 1;
             }
             return false;
         case NMC_HU8:
             if (record->event.pressed) {
-                rgb_matrix_config.hsv.h = qadd8(rgb_matrix_config.hsv.h, 8);
+                rgb_matrix_config.hsv.h += 8;
             }
             return false;
         case NMC_SD8:
