@@ -1,4 +1,4 @@
-# `nikkelma` GMMK PRO ANSI (nikkelma) keymap
+# `kracerlink` GMMK PRO ANSI keymap
 
 This layout inherits many of the features/design of the default keymap:
 - FN is a momentary toggle to layer 1
@@ -37,8 +37,8 @@ python -m pip install qmk
 
 qmk setup
 
-qmk config user.keyboard=gmmk/pro/rev1/ansi-nikkelma
-qmk config user.keymap=nikkelma
+qmk config user.keyboard=gmmk/pro/rev1/ansi
+qmk config user.keymap=kracerlink
 
 qmk compile
 ```
