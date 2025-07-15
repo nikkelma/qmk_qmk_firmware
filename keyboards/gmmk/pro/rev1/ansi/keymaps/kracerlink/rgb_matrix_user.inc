@@ -514,6 +514,7 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
         }
     }
 
+    speed_config = rgb_matrix_config.speed;
     update_hue_base();
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
