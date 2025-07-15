@@ -519,6 +519,8 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
+    rgb_t default_rgb = hsv_to_rgb(rgb_matrix_config.hsv);
+
     for (uint8_t i = led_min; i < led_max; i++) {
         switch (i) {
             // Left LEDs
@@ -560,7 +562,16 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
             case LED_F10:
             case LED_F11:
             case LED_F12:
+                rgb_matrix_set_color(i, default_rgb.r, default_rgb.g, default_rgb.b);
+                break;
             case LED_PRT:
+                if IS_LAYER_ON(2) {
+                    hsv_t default_hsv_inv = rgb_matrix_config.hsv;
+                    default_hsv_inv.h -= 128;
+                    rgb_t default_rgb_inv = hsv_to_rgb(default_hsv_inv);
+                    rgb_matrix_set_color(i, default_rgb_inv.r, default_rgb_inv.g, default_rgb_inv.b);
+                }
+                break;
 
             // row 2 (number keys)
             case LED_GRV:
@@ -645,7 +656,6 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
             case LED_RIGHT:
 
             default:
-                rgb_t default_rgb = hsv_to_rgb(rgb_matrix_config.hsv);
                 rgb_matrix_set_color(i, default_rgb.r, default_rgb.g, default_rgb.b);
                 break;
         }
