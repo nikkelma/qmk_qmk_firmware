@@ -122,6 +122,23 @@ typedef enum led_location_map {
     LED_DOWN // 97, Down, k73
 } led_location_map;
 
+// Pulse Blue
+// HSV: 112 (uint8_t) / 158 deg, 255, 255
+// RGB: 0, 255, 162
+#define RGB_PULSE_BLUE(pin) rgb_matrix_set_color(pin, 0, 255, 162)
+
+// Gateway Orange
+// HSV: 8 (uint8_t) / 11 deg, 255, 255
+// RGB: 255, 48, 0
+#define RGB_GATEWAY_ORANGE(pin) rgb_matrix_set_color(pin, 255, 48, 0)
+
+// Gateway Blue
+// HSV: 151 (uint8_t) / 213 deg, 207, 255
+// RGB: 47, 140, 255
+#define RGB_GATEWAY_BLUE(pin) rgb_matrix_set_color(pin, 0, 133, 255)
+
+#define RGB_GATEWAY_WHITE(pin) rgb_matrix_set_color(pin, 255, 255, 255)
+
 typedef enum nikkelma_keycodes {
   NMD_HD8 = SAFE_RANGE,
   NMD_HD1,
@@ -237,11 +254,161 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-bool rgb_matrix_indicators_user() {
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(LED_CAPS, 0xFF, 0x00, 0x00);
+// bool rgb_matrix_indicators_user() {
+//     if (host_keyboard_led_state().caps_lock) {
+//         rgb_matrix_set_color(LED_CAPS, 0xFF, 0x00, 0x00);
+//     }
+//     return true;
+// }
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    // RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
+    bool caps_lock_on = host_keyboard_led_state().caps_lock;
+    for (uint8_t i = led_min; i < led_max; i++) {
+        switch (i) {
+            // Left LEDs
+            case LED_L1:
+            case LED_L2:
+            case LED_L3:
+            case LED_L4:
+            case LED_L5:
+            case LED_L6:
+            case LED_L7:
+            case LED_L8:
+
+            // Right LEDs
+            case LED_R1:
+            case LED_R2:
+            case LED_R3:
+            case LED_R4:
+            case LED_R5:
+            case LED_R6:
+            case LED_R7:
+            case LED_R8:
+                if (caps_lock_on) {
+                    RGB_GATEWAY_WHITE(i);
+                }
+                break;
+
+            // row 1 (F keys)
+            case LED_ESC:
+                // if (caps_lock_on) {
+                //     RGB_GATEWAY_WHITE(i);
+                // }
+                // break;
+            case LED_F1:
+            case LED_F2:
+            case LED_F3:
+            case LED_F4:
+            case LED_F5:
+            case LED_F6:
+            case LED_F7:
+            case LED_F8:
+            case LED_F9:
+            case LED_F10:
+            case LED_F11:
+            case LED_F12:
+            case LED_DEL: // case LED_PRT
+                break;
+
+            // row 2 (number keys)
+            case LED_GRV:
+                // if (caps_lock_on) {
+                //     RGB_GATEWAY_WHITE(i);
+                // }
+                // break;
+            case LED_1:
+            case LED_2:
+            case LED_3:
+            case LED_4:
+            case LED_5:
+            case LED_6:
+            case LED_7:
+            case LED_8:
+            case LED_9:
+            case LED_0:
+            case LED_MINS:
+            case LED_EQL:
+            case LED_BSPC:
+                break;
+
+            // row 3 (QWERTY)
+            case LED_TAB:
+            case LED_Q:
+            case LED_W:
+            case LED_E:
+            case LED_R:
+            case LED_T:
+            case LED_Y:
+            case LED_U:
+            case LED_I:
+            case LED_O:
+            case LED_P:
+            case LED_LBRC:
+            case LED_RBRC:
+            case LED_BSLS:
+                break;
+
+            // row 4 (ASDF)
+            case LED_CAPS:
+            case LED_A:
+            case LED_S:
+            case LED_D:
+            case LED_F:
+            case LED_G:
+            case LED_H:
+            case LED_J:
+            case LED_K:
+            case LED_L:
+            case LED_SCLN:
+            case LED_QUOT:
+            case LED_ENT:
+                break;
+
+            // row 5 (ZXCV)
+            case LED_LSFT:
+            case LED_Z:
+            case LED_X:
+            case LED_C:
+            case LED_V:
+            case LED_B:
+            case LED_N:
+            case LED_M:
+            case LED_COMM:
+            case LED_DOT:
+            case LED_SLSH:
+            case LED_RSFT:
+                break;
+
+            // row 6 (modifiers + space)
+            case LED_LCTL:
+            case LED_LWIN:
+            case LED_LALT:
+            case LED_SPC:
+            case LED_RALT:
+            case LED_FN:
+            case LED_RCTL:
+                break;
+
+            // side keys
+            case LED_HOME:
+            case LED_END:
+            case LED_PGUP:
+            case LED_PGDN:
+                break;
+
+            // arrow keys
+            case LED_UP:
+            case LED_LEFT:
+            case LED_DOWN:
+            case LED_RIGHT:
+                break;
+
+            default:
+                rgb_matrix_set_color(i, 0xff, 0x00, 0x00);
+        }
     }
-    return true;
+    return false;
 }
 
 #endif // RGB_MATRIX_ENABLE
