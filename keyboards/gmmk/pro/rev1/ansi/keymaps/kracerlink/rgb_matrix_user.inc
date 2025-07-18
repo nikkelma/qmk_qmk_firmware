@@ -523,7 +523,7 @@ static bool spectrum_sides_rgb_main(effect_params_t* params) {
             case LED_R7:
             case LED_R8:
                 uint8_t led_hue = hue_base + led_hue_offset(i);
-                hsv_t spectrum_hsv = {led_hue, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
+                hsv_t spectrum_hsv = {led_hue, 0xFF, rgb_matrix_config.hsv.v};
                 rgb_t spectrum_rgb = hsv_to_rgb(spectrum_hsv);
                 rgb_matrix_set_color(i, spectrum_rgb.r, spectrum_rgb.g, spectrum_rgb.b);
                 break;
