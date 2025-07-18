@@ -209,7 +209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case NMC_HD1:
             if (record->event.pressed) {
-                rgb_matrix_config.hsv.h -= 1);
+                rgb_matrix_config.hsv.h -= 1;
             }
             return false;
         case NMC_HU1:
