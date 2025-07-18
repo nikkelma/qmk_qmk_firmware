@@ -507,12 +507,6 @@ static bool gmk_gateway_a(effect_params_t* params) {
 
             // row 4 (ASDF)
             case LED_CAPS:
-                if (host_keyboard_led_state().caps_lock) {
-                    RGB_GATEWAY_WHITE(i);
-                } else {
-                    RGB_GATEWAY_ORANGE(i);
-                }
-                break;
             case LED_A:
             case LED_S:
             case LED_D:
