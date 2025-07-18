@@ -133,12 +133,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(3, RGB_RED);
-    }
-    return false;
-}
 #endif // RGB_MATRIX_ENABLE
 
 #if defined(ENCODER_MAP_ENABLE)
