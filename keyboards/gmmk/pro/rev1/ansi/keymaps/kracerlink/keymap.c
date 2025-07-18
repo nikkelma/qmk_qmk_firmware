@@ -317,8 +317,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         caps_blink_force_dark = !caps_blink_force_dark;
     }
 
+    timer_prev = timer_cur;
     if (!caps_blink_force_dark) {
-        timer_prev = timer_cur;
         return true;
     }
 
