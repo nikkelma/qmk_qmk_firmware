@@ -11,26 +11,6 @@ RGB_MATRIX_EFFECT(spectrum_sides_rgb_main)
 // Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-// Pulse Blue
-// HSV: 112 (uint8_t) / 158 deg, 255, 255
-// RGB: 0, 255, 162
-#define RGB_PULSE_BLUE(pin) rgb_matrix_set_color(pin, 0, 255, 162)
-
-// Gateway Orange
-// HSV: 8 (uint8_t) / 11 deg, 255, 255
-// RGB: 255, 48, 0
-#define RGB_GATEWAY_ORANGE(pin) rgb_matrix_set_color(pin, 255, 48, 0)
-
-// Gateway Blue
-// HSV: 151 (uint8_t) / 213 deg, 207, 255
-// RGB: 47, 140, 255
-#define RGB_GATEWAY_BLUE(pin) rgb_matrix_set_color(pin, 0, 133, 255)
-
-#define RGB_GATEWAY_WHITE(pin) rgb_matrix_set_color(pin, 255, 255, 255)
-
-// Solid color debug (RGB): allow figuring out ideal RGB without constantly
-// reflashing the KB
-
 // RGB LED locations
 typedef enum led_location_map {
     LED_ESC, // 0, ESC, k13

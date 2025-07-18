@@ -29,9 +29,6 @@ RGB_MATRIX_EFFECT(gmk_gateway_a)
 
 #define RGB_GATEWAY_WHITE(pin) rgb_matrix_set_color(pin, 255, 255, 255)
 
-// Solid color debug (RGB): allow figuring out ideal RGB without constantly
-// reflashing the KB
-
 // RGB LED locations
 typedef enum led_location_map {
     LED_ESC, // 0, ESC, k13
@@ -133,6 +130,9 @@ typedef enum led_location_map {
     LED_ENT, // 96, Enter, ka4
     LED_DOWN // 97, Down, k73
 } led_location_map;
+
+// Solid color debug (RGB): allow figuring out ideal RGB without constantly
+// reflashing the KB
 
 static bool solid_color_debug_rgb(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
